@@ -25,7 +25,6 @@ typedef struct {
     char nome[TAM_NOME], cont[TAM_BLOCO*4];
     time_t criacao, modif;
     Extent ext[MAX_EXT];
-    // ===== NOVOS CAMPOS PARA BUSCA INTELIGENTE =====
     char tags[MAX_TAGS][TAM_TAG];
     int num_tags;
 } Reg;
@@ -37,7 +36,6 @@ char* f_data(time_t t) {
     static char b[20]; strftime(b, 20, "%d/%m/%Y %H:%M", localtime(&t)); return b;
 }
 
-// Função auxiliar para converter string para minúsculas
 void str_tolower(char *dest, const char *src) {
     int i;
     for (i = 0; src[i]; i++) {
@@ -46,7 +44,6 @@ void str_tolower(char *dest, const char *src) {
     dest[i] = '\0';
 }
 
-// Função auxiliar para verificar se uma string contém outra (case-insensitive)
 int str_contains(const char *haystack, const char *needle) {
     char hay_lower[TAM_BLOCO*4], needle_lower[TAM_TAG];
     str_tolower(hay_lower, haystack);
@@ -54,7 +51,6 @@ int str_contains(const char *haystack, const char *needle) {
     return strstr(hay_lower, needle_lower) != NULL;
 }
 
-// Função auxiliar para obter o caminho completo de um arquivo
 void obter_caminho(int idx, char *caminho) {
     if (idx < 0 || idx >= fs.qtd) {
         strcpy(caminho, "");
@@ -64,8 +60,7 @@ void obter_caminho(int idx, char *caminho) {
     char temp[256] = "";
     int id_atual = fs.cat[idx].id;
     
-    // Constrói o caminho de trás para frente
-    while (id_atual != 1) {  // Enquanto não chegar na raiz
+    while (id_atual != 1) {  
         int encontrado = 0;
         for (int i = 0; i < fs.qtd; i++) {
             if (fs.cat[i].id == id_atual) {
@@ -348,7 +343,6 @@ void adicionar_tag(char *nome_arq, int pai, char *tag) {
         return;
     }
     
-    // Verifica se a tag já existe
     for (int j = 0; j < fs.cat[i].num_tags; j++) {
         if (strcmp(fs.cat[i].tags[j], tag) == 0) {
             printf("\n[AVISO] Tag '%s' ja existe neste item\n", tag);
@@ -381,7 +375,6 @@ void remover_tag(char *nome_arq, int pai, char *tag) {
         return;
     }
     
-    // Remove a tag deslocando as outras
     for (int j = encontrou; j < fs.cat[i].num_tags - 1; j++) {
         strcpy(fs.cat[i].tags[j], fs.cat[i].tags[j+1]);
     }
@@ -712,7 +705,6 @@ int main() {
                 info();
                 break;
             
-            // ===== NOVAS FUNCIONALIDADES =====
             case 10:  // Adicionar Tag
                 printf("\nNome do arquivo/diretorio: ");
                 fgets(nome, TAM_NOME, stdin);

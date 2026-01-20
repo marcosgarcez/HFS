@@ -6,8 +6,6 @@
 
 > Uma implementação educacional do sistema de arquivos HFS (Hierarchical File System) da Apple com recursos modernos de busca inteligente e organização por tags.
 
-![HFS Demo](https://via.placeholder.com/800x400/1a1a2e/ffffff?text=HFS+v2.0+-+Demonstração)
-
 ## 📋 Índice
 
 - [Sobre o Projeto](#-sobre-o-projeto)
